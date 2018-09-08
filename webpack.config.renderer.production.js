@@ -85,8 +85,8 @@ module.exports = speedMeasurePlugin.wrap(
       // as far as I know, we just need to report this once per build, so we don't need this done for main.
       new BugsnagBuildReporterPlugin(
         {
-          apiKey: "f8b144863f4723ebb4bdd6c747c5d7b6",
-          appVersion: require("./app/package.json").version
+          apiKey: "f8b144863f4723ebb4bdd6c747c5d7b6"
+          //appVersion: require("./app/package.json").version
         },
         {
           /* opts */

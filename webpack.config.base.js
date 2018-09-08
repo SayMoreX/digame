@@ -194,7 +194,7 @@ if (process.env.NODE_ENV === "production") {
   module.exports.plugins.push(
     new BugsnagSourceMapUploaderPlugin({
       apiKey: "f8b144863f4723ebb4bdd6c747c5d7b6",
-      appVersion: require("./app/package.json").version,
+      // now doing this in index.tsx appVersion: require("./app/package.json").version,
       overwrite: true
     })
   );

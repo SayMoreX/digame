@@ -4,7 +4,7 @@ import ImdiGenerator from "./export/imdiGenerator";
 import log from "./log";
 import ExportDialog from "./components/export/ExportDialog";
 import bugsnag from "bugsnag-js";
-const bugsnagClient = bugsnag("f8b144863f4723ebb4bdd6c747c5d7b6");
+import { bugsnagClient } from "./index";
 
 export default class SayLessMenu {
   private homePage: HomePage;
