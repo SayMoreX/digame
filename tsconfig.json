@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "moduleResolution": "node",
-    "module": "commonjs",
+    "module": "es2015",
     "jsx": "react",
-    "target": "es2016",
+    "target": "es6",
     "lib": ["dom", "es6", "dom.iterable", "scripthost"],
     "types": [],
 

@@ -14,6 +14,8 @@ import "./Form.scss";
 import CustomFieldsTable from "./CustomFieldsTable";
 import AdditionalFieldsTable from "./MoreFieldsTable";
 import IsoLanguageEdit from "./IsoLanguageEdit";
+import { css } from "@emotion/core";
+//import { css } from "emotion";
 
 export interface IProps {
   folder: Folder;
@@ -158,6 +160,13 @@ export default class AutoForm extends React.Component<IProps> {
       <form
         className={"autoForm " + this.props.form + " " + this.props.formClass}
       >
+        <h1
+          css={{
+            color: "purple"
+          }}
+        >
+          Hellox
+        </h1>
         {this.sortedKeys
           .map(k => this.props.folder.properties.getValueOrThrow(k))
 

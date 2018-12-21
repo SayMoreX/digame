@@ -3,7 +3,12 @@
     "@babel/preset-env",
     "@babel/preset-react",
     "@lingui/babel-preset-react",
-    "@babel/preset-typescript"
+    "@babel/preset-typescript",
+    "@emotion/babel-preset-css-prop"
   ],
-  "plugins": ["macros", "@babel/plugin-syntax-dynamic-import"]
+  "plugins": [
+    ["emotion", { "sourceMap": true }],
+    "macros",
+    "@babel/plugin-syntax-dynamic-import"
+  ]
 }
