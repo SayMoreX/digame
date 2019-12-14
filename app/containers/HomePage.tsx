@@ -112,17 +112,21 @@ export default class HomePage extends React.Component<IProps, IState> {
     window.addEventListener("beforeunload", e => {
       if (this.projectHolder.project) {
         this.projectHolder.project.saveAllFilesInFolder();
-        // this doesn't finish fast enough, and I don't know how to delay things
-        try {
-          GitCommitEverything("End of SayMoreX session.").then(() => {
-            remote.getCurrentWindow().destroy(); // 'remote' being electron.remote here
-          });
-        } catch (err) {
-          remote.getCurrentWindow().destroy(); // Don't hold up quitting if something goes wrong there.
+
+        // When we're running from source and do a reload (CTRL+R), the destroy() will kill electron.
+        // We can live with not doing a git commit in that circumstance.
+        if (!this.isRunningFromSource()) {
+          try {
+            GitCommitEverything("End of SayMoreX session.").then(() => {
+              remote.getCurrentWindow().destroy(); // 'remote' being electron.remote here
+            });
+          } catch (err) {
+            remote.getCurrentWindow().destroy(); // Don't hold up quitting if something goes wrong there.
+          }
         }
+        // prevent the window from closing immediately
+        e.returnValue = true;
       }
-      // prevent the window from closing immediately
-      e.returnValue = true;
     });
 
     // Without this timeout, one of: {remote, BrowserWindow, or getFocusedWindow()}, most likely the later,
