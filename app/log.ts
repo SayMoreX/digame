@@ -1,7 +1,7 @@
 import * as Winston from "winston";
 import * as fs from "fs-extra";
 
-const name = process.env.log ? process.env.log : "sayless.log";
+const name = process.env.log ? process.env.log : "saymorex.log";
 
 if (fs.existsSync(name)) {
   // no: removing it makes vscode close the window: fs.removeSync(name);

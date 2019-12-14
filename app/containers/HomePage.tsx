@@ -21,6 +21,7 @@ import { t } from "@lingui/macro";
 import { i18n } from "../localization";
 import { analyticsEvent } from "../analytics";
 import RegistrationDialog from "../components/registration/RegistrationDialog";
+import { GitCommitEverything } from "../SaymoreGit";
 const isDev = require("electron-is-dev");
 
 // tslint:disable-next-line:no-empty-interface
@@ -111,7 +112,17 @@ export default class HomePage extends React.Component<IProps, IState> {
     window.addEventListener("beforeunload", e => {
       if (this.projectHolder.project) {
         this.projectHolder.project.saveAllFilesInFolder();
+        // this doesn't finish fast enough, and I don't know how to delay things
+        try {
+          GitCommitEverything("End of SayMoreX session.").then(() => {
+            remote.getCurrentWindow().destroy(); // 'remote' being electron.remote here
+          });
+        } catch (err) {
+          remote.getCurrentWindow().destroy(); // Don't hold up quitting if something goes wrong there.
+        }
       }
+      // prevent the window from closing immediately
+      e.returnValue = true;
     });
 
     // Without this timeout, one of: {remote, BrowserWindow, or getFocusedWindow()}, most likely the later,

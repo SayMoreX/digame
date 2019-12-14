@@ -24,6 +24,7 @@ import { LanguageFinder } from "../../languageFinder/LanguageFinder";
 const genres = require("./Session/genres.json");
 
 import knownFieldDefinitions from "../field/KnownFieldDefinitions";
+import { GitInit, GitCommitEverything } from "../../SaymoreGit";
 
 let sCurrentProject: Project | null = null;
 
@@ -119,6 +120,8 @@ export class Project extends Folder {
   }
 
   public static fromDirectory(directory: string): Project {
+    GitInit(directory);
+    GitCommitEverything("Changes found when opening project in SayMore");
     const customFieldRegistry = new CustomFieldRegistry();
     const metadataFile = new ProjectMetadataFile(
       directory,

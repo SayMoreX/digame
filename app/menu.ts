@@ -8,6 +8,7 @@ import userSettings from "./UserSettings";
 import RegistrationDialog from "./components/registration/RegistrationDialog";
 import { initializeSentry } from "./errorHandling";
 import { date } from "@lingui/core";
+import { GitCommitEverything } from "./SaymoreGit";
 
 export default class SayLessMenu {
   private homePage: HomePage;
@@ -118,6 +119,14 @@ export default class SayLessMenu {
           label: "&" + i18n._(t`Open Project...`),
           accelerator: "Ctrl+O",
           click: () => this.homePage.openProject()
+        },
+        {
+          label: "&" + i18n._(t`Commit to git right now`),
+          click: () => {
+            this.homePage.projectHolder.project!.saveAllFilesInFolder();
+            GitCommitEverything("Explicit commit by user");
+          },
+          enabled: haveProject
         },
         {
           label: "&" + i18n._(t`Create Project...`),
