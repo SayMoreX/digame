@@ -10685,6 +10685,11 @@ react-dropzone@4.1:
     attr-accept "^1.0.3"
     prop-types "^15.5.7"
 
+react-hooks-worker@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/react-hooks-worker/-/react-hooks-worker-0.9.0.tgz#cf6e481711045d539368c83ba0fa42bd97c71a09"
+  integrity sha512-aDKlrc9Dh8O0Wag2mWbNpuXbTB/kX1tGzq74bFdxSfKg6KHvF9ft789WpatmCBQbszdgXEi3pS/BCj698JXCJQ==
+
 react-hot-loader@^4.12.3:
   version "4.12.3"
   resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-4.12.3.tgz#0972255cd110a00860902e82bb2b789a262cfe01"
@@ -13477,6 +13482,13 @@ worker-farm@^1.5.2, worker-farm@^1.6.0:
   integrity sha512-6w+3tHbM87WnSWnENBUvA2pxJPLhQUg5LKwUQHq3r+XPhIM+Gh2R5ycbwPCyuGbNg+lPgdcnQUhuC02kJCvffQ==
   dependencies:
     errno "~0.1.7"
+
+worker-plugin@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/worker-plugin/-/worker-plugin-4.0.3.tgz#7c42e600d5931ad154d3d5f187a32446df64db0f"
+  integrity sha512-7hFDYWiKcE3yHZvemsoM9lZis/PzurHAEX1ej8PLCu818Rt6QqUAiDdxHPCKZctzmhqzPpcFSgvMCiPbtooqAg==
+  dependencies:
+    loader-utils "^1.1.0"
 
 wrap-ansi@^2.0.0:
   version "2.1.0"

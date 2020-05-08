@@ -222,6 +222,7 @@
     "webpack-cli": "^3.1.2",
     "webpack-hot-middleware": "^2.24.3",
     "webpack-merge": "^4.1.4",
+    "worker-plugin": "^4.0.3",
     "xmldom": "^0.1.27",
     "xpath": "^0.0.27"
   },
@@ -306,6 +307,7 @@
     "react-datepicker": "^1.5.0",
     "react-dom": "^16.12.0",
     "react-dropzone": "4.1",
+    "react-hooks-worker": "^0.9.0",
     "react-modal": "^3.1.10",
     "react-player": "^1.6.4",
     "react-radio-group": "^3.0.3",
