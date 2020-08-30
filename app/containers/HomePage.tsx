@@ -31,6 +31,7 @@ import {
   MessageDialog,
   ShowMessageDialog,
 } from "../components/ShowMessageDialog/MessageDialog";
+
 import { sentryBreadCrumb } from "../errorHandling";
 
 const isDev = require("electron-is-dev");
@@ -103,6 +104,7 @@ export default class HomePage extends React.Component<IProps, IState> {
   }
 
   public componentDidMount() {
+    window.Lameta.ConsoleLogToTerminal("&&&&&&&&&&&&&&&&&&&&&&&&&&& test");
     if (!this.isRunningFromSource()) {
       ShowMessageDialog({
         title: `Warning: this is a beta test version, so make sure you have a backup of your work.`,

@@ -95,6 +95,7 @@ app.on("ready", () =>
           nodeIntegration: true,
 
           enableRemoteModule: true, // TODO Electron wants us to stop using this: https://medium.com/@nornagon/electrons-remote-module-considered-harmful-70d69500f31
+          preload: path.join(__dirname, "preload-bundle.js"),
         },
         show: false,
         width: 1024,
@@ -159,12 +160,6 @@ app.on("ready", () =>
         mainWindow.openDevTools();
       });
 
-      ipcMain.handle("showOpenDialog", async (event, options) => {
-        return await dialog.showOpenDialog(mainWindow, options);
-      });
-      ipcMain.handle("showMessageBox", async (event, options) => {
-        return await dialog.showMessageBox(mainWindow, options);
-      });
       // // warning: this kills e2e! mainWindow.openDevTools(); // temporary, during production build testing
       // if (process.env.NODE_ENV === "development") {
       //   console.log(
