@@ -5,8 +5,8 @@ const electron = require("electron");
 See https://github.com/getsentry/sentry-electron/issues/92. Probably don't really need the "electron" version anyhow,
 could just use the node or web sdk's?
 */
-// import {initializeSentry} from("./errorHandling");
-// initializeSentry();
+import { initializeSentry } from "./errorHandling";
+initializeSentry(/*true*/); // test from menu won't work from dev unless you set this to true
 
 import { app, BrowserWindow, Menu, shell, ipcMain, dialog } from "electron";
 

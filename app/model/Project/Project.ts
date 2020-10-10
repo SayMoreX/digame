@@ -20,7 +20,7 @@ import { t } from "@lingui/macro";
 import { analyticsEvent } from "../../analytics";
 import userSettings from "../../UserSettings";
 import { LanguageFinder } from "../../languageFinder/LanguageFinder";
-import * as Sentry from "@sentry/browser";
+import * as Sentry from "@sentry/electron";
 
 const genres = require("./Session/genres.json");
 

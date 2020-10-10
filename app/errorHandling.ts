@@ -1,7 +1,7 @@
 // NB: started by using @sentry/electron, but it was buggy and unsupported in Fall 2018.
 // Switched to the Browser SDK
 
-import * as Sentry from "@sentry/browser";
+import * as Sentry from "@sentry/electron";
 import userSettingsSingleton from "./UserSettings";
 
 export function initializeSentry(evenIfDevelopmentBuild: boolean = false) {
