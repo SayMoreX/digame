@@ -15,7 +15,7 @@ import { FolderMetadataFile } from "../file/FolderMetaDataFile";
 import { CustomFieldRegistry } from "./CustomFieldRegistry";
 import { IChoice } from "../field/Field";
 import { FieldDefinition } from "../field/FieldDefinition";
-import { i18n } from "../../other/localization";
+import { i18n, translateMessage } from "../../other/localization";
 import { t } from "@lingui/macro";
 import { analyticsEvent } from "../../other/analytics";
 import userSettings from "../../other/UserSettings";
@@ -27,6 +27,11 @@ const genres = require("./Session/genres.json");
 import knownFieldDefinitions from "../field/KnownFieldDefinitions";
 import { duplicateFolder } from "../Folder/DuplicateFolder";
 import { ShowMessageDialog } from "../../components/ShowMessageDialog/MessageDialog";
+import {
+  getSyncServiceForPath,
+  stopSyncProcess,
+} from "../../other/SyncServicesUtilities";
+import { NotifyWarning } from "../../components/Notify";
 
 let sCurrentProject: Project | null = null;
 
@@ -122,6 +127,17 @@ export class Project extends Folder {
   }
 
   public static fromDirectory(directory: string): Project {
+    const service = getSyncServiceForPath(directory);
+    if (service) {
+      NotifyWarning(
+        translateMessage(
+          /*i18n*/ {
+            id: `File synchronization services interfere with lameta. We will attempt to stop the synchronization service now and restart when you quit.`,
+          }
+        ) + ` (${service})`
+      );
+      //stopSyncProcess();
+    }
     try {
       const customFieldRegistry = new CustomFieldRegistry();
       const metadataFile = new ProjectMetadataFile(

@@ -9,6 +9,7 @@ import { initializeSentry as initializeErrorReporting } from "./other/errorHandl
 import { i18n, initializeLocalization } from "./other/localization";
 import { CopyManager } from "./other/CopyManager";
 import { t } from "@lingui/macro";
+import { restartSyncProcess } from "./other/SyncServicesUtilities";
 
 //if (!process.env.HOT) {
 // sentry kills hot reloading with react-hot-loader
@@ -27,6 +28,7 @@ setConfig({ logLevel: "debug" });
 document.body.setAttribute("class", remote.process.platform);
 
 window.onbeforeunload = (e: BeforeUnloadEvent) => {
+  restartSyncProcess();
   if (CopyManager.filesAreStillCopying()) {
     ipcRenderer
       .invoke(
