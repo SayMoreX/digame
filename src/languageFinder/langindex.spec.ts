@@ -1,21 +1,19 @@
 import fs from "fs";
 import { ILangIndexEntry } from "./LanguageFinder";
-jest.mock("@electron/remote", () => ({ exec: jest.fn() })); //See commit msg for info
+import { vi, describe, beforeAll, it, expect } from "vitest";
+vi.mock("@electron/remote", () => ({ exec: vi.fn() })); //See commit msg for info
 
 // langindex.json is created by `yarn make-langindex`. We will need to run that whenever we take in an updated langtags.json from
 describe("Check langindex.json", () => {
   let index: ILangIndexEntry[] = [];
   beforeAll(() => {
-    const json = fs.readFileSync("./app/languageFinder/langindex.json", "utf8");
+    const json = fs.readFileSync("./src/languageFinder/langindex.json", "utf8");
     index = JSON.parse(json);
   });
   it("has expected stuff", () => {
-    expect(
-      true
-      // index.find(
-      //   (i) => i.iso639_3 === "qaa"  && i.englishName === "Language Not Listed"
-      // )
-    ).toBeTruthy();
+    expect(index.find((i) => i.iso639_3 === "qaa")?.englishName).toBe(
+      "Unlisted Language"
+    );
 
     expect(
       index.find(
@@ -39,7 +37,7 @@ describe("Check langindex.json", () => {
         (i) =>
           i.iso639_3 === "abt" &&
           i.englishName === "Ambulas" &&
-          i.altNames.includes("Abelam")
+          i.altNames!.includes("Abelam")
       )
     ).toBeTruthy();
   });
@@ -50,31 +48,31 @@ describe("Check langindex.json", () => {
         (i) =>
           i.iso639_3 === "abt" &&
           // should gather names from two following different tags: "abt-Latn-PG-x-maprik" and  "abt-Latn-PG-x-woserak"
-          i.altNames.includes("Ambulas - Maprik") &&
-          i.altNames.includes("Ambulas - Wosera Kamu")
+          i.altNames!.includes("Ambulas - Maprik") &&
+          i.altNames!.includes("Ambulas - Wosera Kamu")
       )
     ).toBeTruthy();
   });
 
   it("adds together the names of various tags of this language, spa", () => {
     const l = index.find((i) => i.iso639_3 === "spa");
-    expect(l.altNames).toContain("Español");
-    expect(l.altNames).toContain("Espagnol");
+    expect(l!.altNames).toContain("Español");
+    expect(l!.altNames).toContain("Espagnol");
   });
   it("chooses the right english name for Spanish", () => {
     const l = index.find((i) => i.iso639_3 === "spa");
-    expect(l.englishName).toBe("Spanish");
+    expect(l!.englishName).toBe("Spanish");
   });
 
   it("chooses the right english name for French", () => {
     const l = index.find((i) => i.iso639_3 === "fra");
-    expect(l.englishName).toBe("French");
+    expect(l!.englishName).toBe("French");
   });
   it("removes duplicate names", () => {
     expect(
       index
-        .find((i) => i.iso639_3 === "abt")
-        .altNames.filter((n) => n === "Abulas").length
+        .find((i) => i.iso639_3 === "abt")!
+        .altNames!.filter((n) => n === "Abulas").length
     ).toBe(1);
   });
 });
