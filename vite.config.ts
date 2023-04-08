@@ -8,7 +8,6 @@ import renderer from "vite-plugin-electron-renderer";
 import pkg from "./package.json";
 import dsv from "@rollup/plugin-dsv";
 import timeReporter from "vite-plugin-time-reporter";
-
 // I don't know if this is costly... it came with the boilerplate
 rmSync(path.join(__dirname, "dist"), { recursive: true, force: true });
 
@@ -19,16 +18,23 @@ export default defineConfig({
       "package.json": path.resolve(__dirname, "./package.json")
     }
   },
+  build: {
+    // Review: This save 30% (15 seconds) for initial build (and the only build that builds main.ts)
+    // idealy we would only use it when needed, which is for e2e testing
+    target: "esnext",
+    minify: false,
+    rollupOptions: { treeshake: false }
+  },
   plugins: [
     timeReporter(),
     react({
-      babel: {
+      /* babel: {
         // makes lingui macros work. There is a some performance penalty, but I
         //don't know how much. See https://github.com/skovhus/vite-lingui
         plugins: ["macros"]
         // I don't know why, but css props work without this or the 'macros' thing above
         //   plugins: ["@emotion/babel-plugin"],
-      }
+      }*/
     }),
     electron({
       outDir: "dist",
@@ -57,7 +63,7 @@ export default defineConfig({
     renderer({
       nodeIntegration: true,
       optimizeDeps: {
-        include: ["xml2js", "glob", "fs-extra", "graceful-fs"]
+        include: ["xml2js", "glob", "fs-extra", "graceful-fs", "chalk"]
       }
     }),
     dsv() // for importing csv
